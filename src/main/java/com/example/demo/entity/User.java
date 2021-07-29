@@ -1,5 +1,13 @@
 package com.example.demo.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "users")
 public class User {
 	private int id;
 	private String name;
@@ -8,6 +16,20 @@ public class User {
 	private String address;
 	private String phoneNumber;
 
+	public User() {
+	}
+
+	public User(int id, String name, String email, String password, String address, String phoneNumber) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.address = address;
+		this.phoneNumber = phoneNumber;
+	}
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
 	}
