@@ -1,11 +1,11 @@
 package com.example.demo.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.Repository.IUserRepository;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserServiceImpl;
 
@@ -21,33 +22,28 @@ import com.example.demo.service.UserServiceImpl;
 public class UserController {
 	@Autowired
 	UserServiceImpl userServiceImpl;
-//
-//	@PostMapping("/add-user")
-//	public User creatUser(@RequestBody User user) {
-//		listUsers.add(user);
-//		return user;
-//	}
+
+	@Autowired
+	IUserRepository iUserRepository;
+
+	@PostMapping("/add-user")
+	public User createUser(@RequestBody User user) {
+		return userServiceImpl.saveUser(user);
+	}
 
 	@GetMapping("/show-all")
 	public List<User> showAllUser() {
 		return userServiceImpl.showAll();
 	}
 
-//	@DeleteMapping("/delete-user")
-//	public void deleteUser(@RequestParam(name = "id") int id) {
-//		for (int i = 0; i < listUsers.size(); i++) {
-//			if (listUsers.get(i).getId() == id) {
-//				listUsers.remove(i);
-//			}
-//		}
-//	}
-//
-//	@PutMapping("/update-user")
-//	public void updateUser(@RequestBody User user) {
-//		for (int i = 0; i < listUsers.size(); i++) {
-//			if (listUsers.get(i).getId() == user.getId()) {
-//				listUsers.set(i, user);
-//			}
-//		}
-//	}
+	@PutMapping("/update-user/{id}")
+	public User updateUser(@PathVariable("id") int id, @RequestBody User user) {
+		return userServiceImpl.updateUser(id, user);
+	}
+
+	@DeleteMapping("/delete-user")
+	public void deleteUser(@RequestParam(name = "id") int id) {
+		userServiceImpl.deleteUser(id);
+	}
+
 }

@@ -8,7 +8,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User{
+	
 	private int id;
 	private String name;
 	private String email;
@@ -27,7 +28,6 @@ public class User {
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
@@ -76,6 +76,12 @@ public class User {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", address="
+				+ address + ", phoneNumber=" + phoneNumber + "]";
 	}
 
 }
